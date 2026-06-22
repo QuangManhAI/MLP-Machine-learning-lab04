@@ -24,6 +24,9 @@ class MultiLayerPercepTron:
     def MSE(self, y_pred, y_true):
         return np.mean((y_pred - y_true) ** 2)
 
+    def MAE(self, y_pred, y_true):
+        return np.mean(np.abs(y_pred - y_true))
+
     def fit(self, X, y):
         # Dam bao y co shape (N, 1) de khop voi phep tinh ma tran
         if len(y.shape) == 1:
