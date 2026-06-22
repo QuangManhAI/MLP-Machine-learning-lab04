@@ -1,25 +1,34 @@
 import numpy as np
 
 class MultiLayerPercepTron:
-    def __init__(self, epochs, lr):
+    def __init__(self, input_dim, epochs, lr):
         self.epochs = epochs
         self.lr = lr
-        self.W1 = np.random.rand((10, 64))
-        self.b1 = np.random.rand(10)
+        
+        # Khoi tao trong so theo He Initialization (on dinh hon cho ReLU)
+        self.W1 = np.random.randn(input_dim, 64) * np.sqrt(2.0 / input_dim)
+        self.b1 = np.zeros((1, 64))
 
-        self.W2 = np.random.rand((64, 32))
-        self.b2 = np.random.rand(32)
+        self.W2 = np.random.randn(64, 32) * np.sqrt(2.0 / 64)
+        self.b2 = np.zeros((1, 32))
 
-        self.W3 = np.random.rand((32, 1))
-        self.b3 = np.random.rand(1)
+        self.W3 = np.random.randn(32, 1) * np.sqrt(2.0 / 32)
+        self.b3 = np.zeros((1, 1))
+
     def relu(self, x):
         return np.maximum(0, x)
     
     def z(self, X, b, W):
         return np.dot(X, W) + b
+
     def MSE(self, y_pred, y_true):
         return np.mean((y_pred - y_true) ** 2)
+
     def fit(self, X, y):
+        # Dam bao y co shape (N, 1) de khop voi phep tinh ma tran
+        if len(y.shape) == 1:
+            y = y.reshape(-1, 1)
+            
         for epoch in range(self.epochs):
             # Forward pass
             z1 = self.z(X, self.b1, self.W1)
@@ -34,27 +43,32 @@ class MultiLayerPercepTron:
             # Compute loss
             loss = self.MSE(y_pred, y)
 
-            # Backward pass (simplified)
+            # Backward pass
             d_loss_y_pred = 2 * (y_pred - y) / y.size
             d_loss_z3 = d_loss_y_pred
             d_loss_W3 = np.dot(a2.T, d_loss_z3)
-            d_loss_b3 = np.sum(d_loss_z3, axis=0)
+            d_loss_b3 = np.sum(d_loss_z3, axis=0, keepdims=True)
+            
             d_loss_a2 = np.dot(d_loss_z3, self.W3.T)
             d_loss_z2 = d_loss_a2 * (z2 > 0)
             d_loss_W2 = np.dot(a1.T, d_loss_z2)
-            d_loss_b2 = np.sum(d_loss_z2, axis=0)
+            d_loss_b2 = np.sum(d_loss_z2, axis=0, keepdims=True)
+            
             d_loss_a1 = np.dot(d_loss_z2, self.W2.T)
             d_loss_z1 = d_loss_a1 * (z1 > 0)
             d_loss_W1 = np.dot(X.T, d_loss_z1)
-            d_loss_b1 = np.sum(d_loss_z1, axis=0)
+            d_loss_b1 = np.sum(d_loss_z1, axis=0, keepdims=True)
 
-            # gradient descent update
+            # Gradient descent update
             self.W3 -= self.lr * d_loss_W3
             self.b3 -= self.lr * d_loss_b3
             self.W2 -= self.lr * d_loss_W2
             self.b2 -= self.lr * d_loss_b2
             self.W1 -= self.lr * d_loss_W1
             self.b1 -= self.lr * d_loss_b1          
+
+            if epoch % 50 == 0 or epoch == self.epochs - 1:
+                print(f"Epoch {epoch}/{self.epochs} - Loss: {loss:.4f}")
 
     def predict(self, X):
         z1 = self.z(X, self.b1, self.W1)
