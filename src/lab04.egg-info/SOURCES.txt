@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+src/lab04/__init__.py
+src/lab04/eda.py
+src/lab04/model.py
+src/lab04/process.py
+src/lab04.egg-info/PKG-INFO
+src/lab04.egg-info/SOURCES.txt
+src/lab04.egg-info/dependency_links.txt
+src/lab04.egg-info/top_level.txt

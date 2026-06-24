@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: lab04
+Version: 0.1.0
+Summary: Refactored California housing machine learning lab.
+Requires-Python: >=3.9
