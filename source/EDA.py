@@ -5,13 +5,6 @@ import seaborn as sns
 from pandas.plotting import scatter_matrix
 from pathlib import Path
 
-# ============================================================
-# EDA – California Housing Dataset
-# Source: https://www.kaggle.com/datasets/camnugent/california-housing-prices
-# Tham khảo: Hands-on ML3 – Chapter 2 (02_end_to_end_machine_learning_project)
-# ============================================================
-
-# Tự động tạo thư mục lưu ảnh
 SAVE_DIR = Path("reports/eda")
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -19,16 +12,13 @@ def save_fig(name, dpi=150):
     plt.tight_layout()
     plt.savefig(SAVE_DIR / f"{name}.png", dpi=dpi)
 
-# Font mặc định (theo notebook mẫu)
 plt.rc("font", size=14)
 plt.rc("axes", labelsize=14, titlesize=14)
 plt.rc("legend", fontsize=14)
 plt.rc("xtick", labelsize=10)
 plt.rc("ytick", labelsize=10)
 
-# ============================================================
-# 1. LOAD DATA
-# ============================================================
+
 df = pd.read_csv("data/raw/housing.csv")
 
 print("=" * 60)
@@ -41,17 +31,12 @@ print(df.info())
 print("\nOcean Proximity value counts:")
 print(df["ocean_proximity"].value_counts())
 
-# ============================================================
-# 2. STATISTICAL SUMMARY
-# ============================================================
+
 print("\n" + "=" * 60)
 print("2. STATISTICAL SUMMARY")
 print("=" * 60)
 print(df.describe())
 
-# ============================================================
-# 3. MISSING VALUES
-# ============================================================
 print("\n" + "=" * 60)
 print("3. MISSING VALUES")
 print("=" * 60)
@@ -66,17 +51,12 @@ plt.ylabel("Count")
 save_fig("eda_01_missing_values")
 plt.show()
 
-# ============================================================
-# 4. FEATURE DISTRIBUTIONS (histogram – theo notebook mẫu)
-# ============================================================
 df.hist(bins=50, figsize=(12, 8))
 plt.suptitle("Feature Distributions", fontsize=14)
 save_fig("eda_02_feature_distributions")
 plt.show()
 
-# ============================================================
-# 5. TARGET DISTRIBUTION – median_house_value
-# ============================================================
+
 plt.figure(figsize=(8, 5))
 plt.hist(df["median_house_value"], bins=50, color="steelblue", edgecolor="white")
 plt.axvline(df["median_house_value"].median(), color="red",
@@ -88,11 +68,7 @@ plt.legend()
 save_fig("eda_03_target_distribution")
 plt.show()
 
-# ============================================================
-# 6. GEOGRAPHIC VISUALIZATION
-#    - Basic scatter (theo notebook mẫu: 2 bước tiến dần)
-#    - Nâng cao: size = population, màu = giá nhà
-# ============================================================
+
 
 # 6a. Basic
 df.plot(kind="scatter", x="longitude", y="latitude", grid=True,
@@ -110,18 +86,15 @@ plt.title("Geographic Distribution of House Prices – California")
 save_fig("eda_05_geo_price_population")
 plt.show()
 
-# ============================================================
-# 7. CORRELATION MATRIX
-# ============================================================
 corr = df.corr(numeric_only=True)
 
-# 7a. Correlation với target – sort (theo notebook mẫu)
+
 print("\n" + "=" * 60)
 print("7. CORRELATION WITH TARGET")
 print("=" * 60)
 print(corr["median_house_value"].sort_values(ascending=False))
 
-# 7b. Heatmap (nửa dưới)
+
 plt.figure(figsize=(10, 8))
 mask = np.triu(np.ones_like(corr, dtype=bool))
 sns.heatmap(corr, mask=mask, annot=True, cmap="coolwarm",
@@ -130,7 +103,6 @@ plt.title("Correlation Heatmap (numeric features)")
 save_fig("eda_06_correlation_heatmap")
 plt.show()
 
-# 7c. Bar chart tương quan với target
 target_corr = corr["median_house_value"].drop("median_house_value").sort_values()
 colors = ["tomato" if v < 0 else "steelblue" for v in target_corr]
 plt.figure(figsize=(8, 5))
@@ -141,9 +113,7 @@ plt.xlabel("Pearson Correlation")
 save_fig("eda_07_target_correlation_bar")
 plt.show()
 
-# ============================================================
-# 8. SCATTER MATRIX – 4 features quan trọng (theo notebook mẫu)
-# ============================================================
+
 attributes = ["median_house_value", "median_income",
               "total_rooms", "housing_median_age"]
 scatter_matrix(df[attributes], figsize=(12, 8))
@@ -151,18 +121,14 @@ plt.suptitle("Scatter Matrix – Top Features", fontsize=13)
 save_fig("eda_08_scatter_matrix")
 plt.show()
 
-# ============================================================
-# 9. MEDIAN INCOME vs HOUSE VALUE (scatter riêng – notebook mẫu)
-# ============================================================
+
 df.plot(kind="scatter", x="median_income", y="median_house_value",
         alpha=0.1, grid=True, figsize=(8, 6))
 plt.title("Median Income vs Median House Value")
 save_fig("eda_09_income_vs_price")
 plt.show()
 
-# ============================================================
-# 10. OCEAN PROXIMITY
-# ============================================================
+
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 df["ocean_proximity"].value_counts().plot(
@@ -190,10 +156,7 @@ plt.xticks(rotation=15)
 save_fig("eda_11_ocean_proximity_boxplot")
 plt.show()
 
-# ============================================================
-# 11. FEATURE ENGINEERING PREVIEW
-#     (thêm 3 feature mới rồi xem lại tương quan – notebook mẫu)
-# ============================================================
+
 df["rooms_per_house"]      = df["total_rooms"]    / df["households"]
 df["bedrooms_ratio"]       = df["total_bedrooms"] / df["total_rooms"]
 df["people_per_house"]     = df["population"]     / df["households"]
@@ -208,7 +171,7 @@ print("11. NEW FEATURE CORRELATION WITH TARGET")
 print("=" * 60)
 print(new_corr)
 
-# Toàn bộ tương quan sau khi thêm feature mới
+
 full_corr = corr2["median_house_value"].drop("median_house_value").sort_values()
 colors2 = ["tomato" if v < 0 else "steelblue" for v in full_corr]
 plt.figure(figsize=(9, 6))
