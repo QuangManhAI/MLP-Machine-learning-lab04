@@ -1,34 +1,30 @@
-# Kế hoạch chi tiết - Dự đoán giá nhà California (Lab 04)
+# Kế hoạch dự án Lab 04 - Dự báo giá nhà ở California
+# https://www.kaggle.com/datasets/nazishjaveed/california-house-price-prediction
+Kế hoạch triển khai các bước chạy mô hình dự báo giá nhà.
 
-Tài liệu này trình bày kế hoạch các bước triển khai chi tiết cho bài toán dự báo giá nhà.
+## Các đầu mục công việc chính
 
----
+### 1. Khám phá dữ liệu ban đầu
+- Xem thông tin tổng quan về dữ liệu, kiểu của các cột và các chỉ số thống kê cơ bản.
+- Vẽ phân bố giá trị nhà trung bình để xem dải dữ liệu và phát hiện xem có bị chặn trần hay không.
+- Vẽ đồ thị tọa độ kinh độ vĩ độ kết hợp với mật độ dân số và giá nhà để tìm vùng có giá nhà cao.
+- Tính tương quan Pearson giữa các đặc trưng để tìm xem yếu tố nào ảnh hưởng nhiều nhất đến giá nhà.
+- Thống kê tỷ lệ dữ liệu bị thiếu ở cột số phòng ngủ.
 
-## Các giai đoạn thực hiện
+### 2. Tiền xử lý dữ liệu
+- Chia dữ liệu thành hai tập train và test dựa theo phân lớp thu nhập để tránh bị lệch phân phối.
+- Điền các giá trị thiếu ở cột số phòng ngủ bằng giá trị trung vị.
+- Mã hóa One-Hot cho cột ocean_proximity là cột phân loại.
+- Tạo thêm một số thuộc tính mới như số phòng trung bình mỗi hộ, dân số trung bình mỗi hộ và tỷ lệ phòng ngủ trên tổng số phòng.
+- Chuẩn hóa dữ liệu đầu vào và đầu ra bằng StandardScaler để mô hình dễ hội tụ hơn.
 
-### 1. Phân tích khám phá dữ liệu (EDA)
-- **Đọc và Tổng quan**: Xem thông tin tổng quát về kích thước dữ liệu, kiểu dữ liệu (`df.info()`), các thuộc tính thống kê cơ bản (`df.describe()`).
-- **Phân phối của nhãn**: Xem phân phối giá trị nhà trung vị `median_house_value`, xác định giới hạn trần nếu có (ở mức $500,001).
-- **Phân tích địa lý**: Sử dụng các biểu đồ phân tán kinh độ/vĩ độ kết hợp với quy mô dân số (s) và giá trị nhà (c) để phát hiện xu hướng giá cao tập trung ở vùng ven biển.
-- **Tương quan đặc trưng**: Tính ma trận tương quan Pearson, vẽ heatmap để phát hiện mối quan hệ mạnh nhất (ví dụ: thu nhập trung vị `median_income` có độ tương quan rất cao với giá nhà).
-- **Giá trị khuyết thiếu**: Thống kê số lượng giá trị NaN ở thuộc tính `total_bedrooms` (chiếm khoảng 1%).
+### 3. Thiết kế và huấn luyện mô hình MLP tự code
+- Mạng nơ-ron cơ bản gồm hai lớp ẩn với số node lần lượt là 64 và 32, sử dụng hàm kích hoạt ReLU.
+- Lớp đầu ra có một node để dự báo giá nhà.
+- Tự viết thuật toán lan truyền ngược Backpropagation và cập nhật trọng số bằng Gradient Descent với learning rate là 0.1.
+- Huấn luyện mô hình qua 5000 vòng lặp và theo dõi hàm mất mát MSE giảm dần.
 
-### 2. Tiền xử lý dữ liệu (Data Preprocessing)
-- **Tách tập dữ liệu**: Phân chia tập huấn luyện (train) và kiểm thử (test) phân tầng theo phân khúc thu nhập (`StratifiedShuffleSplit`) để bảo toàn tính phân phối của dữ liệu gốc.
-- **Làm sạch dữ liệu**: Sử dụng Imputer điền khuyết các giá trị thiếu trong `total_bedrooms` bằng giá trị trung vị (median).
-- **Xử lý thuộc tính phân loại**: Mã hóa One-Hot cho thuộc tính `ocean_proximity`.
-- **Tạo đặc trưng phái sinh**: Thêm các thuộc tính tỷ lệ `rooms_per_household`, `population_per_household`, `bedrooms_per_room`.
-- **Chuẩn hóa quy mô**: Áp dụng chuẩn hóa z-score (`StandardScaler`) cho các đặc trưng đầu vào và chuẩn hóa biến mục tiêu để mô hình mạng nơ-ron học ổn định hơn.
-
-### 3. Huấn luyện mô hình MLP tự viết từ đầu (model.py)
-- **Kiến trúc**: Mạng nơ-ron truyền thẳng (Feedforward Neural Network) với:
-  - Lớp ẩn 1: 64 nơ-ron, hàm kích hoạt ReLU.
-  - Lớp ẩn 2: 32 nơ-ron, hàm kích hoạt ReLU.
-  - Lớp đầu ra: 1 nơ-ron (dự đoán giá trị liên tục).
-- **Thuật toán tối ưu**: Lan truyền ngược (Backpropagation) và cập nhật trọng số bằng Gradient Descent cơ bản với tốc độ học `lr = 0.1`.
-- **Huấn luyện**: Thiết lập số epoch là `5000`. Theo dõi sự giảm dần của hàm mất mát Mean Squared Error (MSE).
-
-### 4. Đánh giá hiệu năng và Kết xuất
-- **Dự đoán và Chuyển ngược**: Sử dụng mô hình đã huấn luyện để dự đoán trên tập test, chuyển ngược nhãn về đơn vị gốc (USD) thông qua `inverse_transform` của scaler.
-- **Chỉ số đánh giá**: Tính toán độ lỗi Root Mean Squared Error (RMSE) và Mean Absolute Error (MAE) trên đơn vị thực tế.
-- **Kết xuất**: Lưu trữ dữ liệu preprocessed vào `data/processed/housing_prepared.csv`.
+### 4. Đánh giá kết quả
+- Dùng mô hình đã huấn luyện để dự đoán trên tập test, sau đó đưa giá trị dự đoán về đơn vị USD thực tế.
+- Tính toán hai chỉ số đánh giá là RMSE và MAE.
+- Lưu lại bộ dữ liệu sau khi đã tiền xử lý vào thư mục data.

@@ -1,40 +1,34 @@
-# Requirements - Dự đoán giá nhà California (Lab 04)
+# Yêu cầu dự án Lab 04 - Dự đoán giá nhà California
 
-Tài liệu này tóm tắt yêu cầu, dữ liệu đầu vào, đầu ra và các bước triển khai của bài toán dự đoán giá nhà trong bài thực hành Lab 04.
+Tóm tắt các yêu cầu, dữ liệu đầu vào, kết quả cần đạt được và các bước thực hiện của bài Lab 04.
 
----
+## 1. Mục tiêu
+Xây dựng mô hình dự báo giá nhà ở bang California dựa trên dữ liệu nhân khẩu học và vị trí địa lý.
+Yêu cầu quan trọng là tự cài đặt thuật toán mạng nơ-ron MLP từ đầu bằng thư viện NumPy, sau đó huấn luyện và đánh giá kết quả thay vì dùng các thư viện có sẵn như Scikit-Learn hay PyTorch cho phần mô hình.
 
-## 1. Purpose - Mục tiêu
-Xây dựng hệ thống dự báo giá nhà trung vị (`median_house_value`) tại bang California dựa trên các thông tin nhân khẩu học và địa lý.
-Yêu cầu đặc biệt là tự viết thuật toán Multi-Layer Perceptron (MLP) từ đầu (sử dụng NumPy) để huấn luyện và đối chiếu hiệu năng.
+## 2. Dữ liệu đầu vào
+- File dữ liệu gốc đặt tại đường dẫn data/raw/housing.csv.
+- Các thông tin đi kèm gồm tọa độ kinh độ, vĩ độ, tuổi của nhà, tổng số phòng, tổng số phòng ngủ, dân số, số hộ gia đình, mức thu nhập trung bình và khoảng cách tới biển.
 
----
+## 3. Kết quả cần đạt được
 
-## 2. Input - Dữ liệu đầu vào
-* File dữ liệu: `data/raw/housing.csv`
-* Các đặc trưng chính: Kinh độ (`longitude`), Vĩ độ (`latitude`), Tuổi nhà trung vị (`housing_median_age`), Tổng số phòng (`total_rooms`), Tổng số phòng ngủ (`total_bedrooms`), Dân số (`population`), Số hộ gia đình (`households`), Thu nhập trung vị (`median_income`), Biến phân loại vị trí gần biển (`ocean_proximity`).
+### Các file mã nguồn trong thư mục src/lab04
+- eda.py chứa các hàm vẽ biểu đồ phân phối giá nhà, bản đồ địa lý và ma trận tương quan.
+- process.py chứa các hàm làm sạch dữ liệu, điền giá trị thiếu, mã hóa đặc trưng và tạo thuộc tính mới.
+- model.py định nghĩa lớp MultiLayerPerceptron tự code bằng NumPy.
 
----
+### Notebook chạy chính
+- notebooks/lab04.ipynb dùng để chạy toàn bộ quy trình từ tải dữ liệu, chạy các bước phân tích, tiền xử lý, huấn luyện mô hình MLP tự viết và cuối cùng là tính toán các độ lỗi RMSE, MAE trên tập kiểm thử.
 
-## 3. Output - Kết quả đầu ra
-1. **Thư viện mã nguồn dùng chung trong src/lab04/**:
-   - `eda.py`: Chứa các hàm vẽ biểu đồ phân tích và trực quan hóa phân phối giá nhà, tương quan đặc trưng, v.v.
-   - `process.py`: Chứa pipeline làm sạch dữ liệu, mã hóa và thêm đặc trưng phái sinh (`CombinedAttributesAdder`).
-   - `model.py`: Chứa lớp mô hình mạng nơ-ron tự viết `MultiLayerPercepTron` từ đầu sử dụng NumPy.
-2. **Notebook chạy hoàn chỉnh**:
-   - `notebooks/lab04.ipynb`: Chạy thông suốt từ khâu nạp dữ liệu, gọi các hàm EDA từ gói `lab04`, tiền xử lý, huấn luyện MLP tự xây dựng, và in ra các chỉ số RMSE, MAE.
+## 4. Các bước triển khai
 
----
+### Bước 1: Phân tích dữ liệu
+- Chạy các hàm vẽ bản đồ địa lý, biểu đồ phân phối và ma trận tương quan để hiểu rõ dữ liệu đầu vào.
 
-## 4. How to do - Các bước thực hiện
+### Bước 2: Chuẩn bị dữ liệu và tạo đặc trưng mới
+- Tạo thêm các đặc trưng tỷ lệ như số phòng ngủ hoặc số phòng trên mỗi hộ.
+- Viết pipeline để tự động hóa việc điền dữ liệu thiếu ở phần số phòng ngủ, mã hóa One-Hot cho dữ liệu dạng chữ và chuẩn hóa tất cả các đặc trưng về cùng một thang đo.
 
-### Bước 1: Khám phá dữ liệu (EDA)
-* Sử dụng các hàm trực quan trong `lab04.eda` để vẽ bản đồ mật độ địa lý, biểu đồ phân phối giá nhà, ma trận tương quan heatmap.
-
-### Bước 2: Tiền xử lý dữ liệu - Feature Engineering
-* Sử dụng `CombinedAttributesAdder` để tạo thêm các thuộc tính tỷ lệ phòng ngủ, phòng trên hộ gia đình.
-* Thiết lập `ColumnTransformer` để tự động hóa quy trình điền dữ liệu thiếu, mã hóa One-Hot biến phân loại, và chuẩn hóa StandardScaler.
-
-### Bước 3: Huấn luyện và Đánh giá
-* Sử dụng lớp `MultiLayerPercepTron` tự viết để fit trên tập huấn luyện đã chuẩn hóa.
-* Dự đoán trên tập test, chuyển ngược thang đo giá nhà (inverse transform) về đơn vị thực tế (USD) và tính toán RMSE, MAE.
+### Bước 3: Huấn luyện và đánh giá
+- Sử dụng mô hình MLP tự viết để khớp dữ liệu trên tập huấn luyện.
+- Dự đoán giá nhà trên tập kiểm thử, đưa kết quả về lại đơn vị USD thực tế rồi tính sai số RMSE và MAE để đánh giá mô hình.
