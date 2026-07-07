@@ -1,0 +1,53 @@
+2026-07-07 16:09:28,247 | INFO | ============================================================
+2026-07-07 16:09:28,247 | INFO | Training run started at 20260707_160928
+2026-07-07 16:09:28,247 | INFO | ============================================================
+2026-07-07 16:09:28,254 | INFO | Loaded housing.csv — shape: (20640, 10)
+2026-07-07 16:09:28,272 | INFO | X_train shape: (16512, 16), X_test shape: (4128, 16)
+2026-07-07 16:09:28,272 | INFO | Preprocessing complete — pipeline built with 16 features
+2026-07-07 16:09:28,273 | INFO | Log1p applied to ['total_rooms', 'total_bedrooms', 'population', 'households']
+2026-07-07 16:09:28,273 | INFO | --- Training on original features ---
+2026-07-07 16:09:28,288 | INFO |   Linear — 0.01s | final loss: 0.355420
+2026-07-07 16:09:30,252 | INFO |   MLP — 1.96s | final loss: 0.249580
+2026-07-07 16:09:30,738 | INFO |   HGB — 0.49s | final loss: 0.197451
+2026-07-07 16:09:30,755 | INFO | --- Training on log-transformed features ---
+2026-07-07 16:09:30,770 | INFO |   Linear — 0.01s | final loss: nan
+2026-07-07 16:09:32,727 | INFO |   MLP — 1.96s | final loss: nan
+2026-07-07 16:09:33,235 | INFO |   HGB — 0.51s | final loss: 0.277597
+2026-07-07 16:09:33,251 | INFO | ======================================================================
+2026-07-07 16:09:33,251 | INFO | COMPARISON: Original vs Log-Transformed
+2026-07-07 16:09:33,251 | INFO | ======================================================================
+2026-07-07 16:09:33,251 | INFO |   Linear               | Orig R²: 0.6519  Log R²: nan  ΔR²: +nanpp  ΔRMSE: +nan%
+2026-07-07 16:09:33,251 | INFO |   MLP                  | Orig R²: 0.7376  Log R²: nan  ΔR²: +nanpp  ΔRMSE: +nan%
+2026-07-07 16:09:33,251 | INFO |   HGB                  | Orig R²: 0.7953  Log R²: 0.7223  ΔR²: -7.30pp  ΔRMSE: -16.47%
+2026-07-07 16:09:33,251 | INFO | Metrics saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_160928/metrics.json
+2026-07-07 16:09:33,307 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,307 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,307 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,314 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,314 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,314 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,322 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,322 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,322 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,331 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,331 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,331 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,339 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,339 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,339 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,348 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,349 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,349 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,377 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,377 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,377 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,385 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,385 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,385 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,395 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,395 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,395 | WARNING | posx and posy should be finite values
+2026-07-07 16:09:33,397 | INFO | Dual comparison saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_160928/comparison_dual.png
+2026-07-07 16:09:33,665 | INFO | Loss comparison saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_160928/loss_comparison.png
+2026-07-07 16:09:33,810 | INFO | Dual comparison saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_160928/comparison_bar.png
+2026-07-07 16:09:33,811 | INFO | All outputs saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_160928

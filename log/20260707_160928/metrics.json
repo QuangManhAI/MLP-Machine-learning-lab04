@@ -1,0 +1,80 @@
+{
+  "timestamp": "20260707_160928",
+  "dataset": "California Housing",
+  "skewed_features": [
+    "total_rooms",
+    "total_bedrooms",
+    "population",
+    "households"
+  ],
+  "train_shape": [
+    16512,
+    16
+  ],
+  "test_shape": [
+    4128,
+    16
+  ],
+  "models": {
+    "Linear": {
+      "original": {
+        "metrics": {
+          "RMSE": 67355.44751694736,
+          "MAE": 49384.56803379956,
+          "R2": 0.6519063880640419,
+          "MAPE": 28.77724439846056
+        },
+        "train_time_s": 0.01
+      },
+      "log": {
+        "metrics": {
+          "RMSE": NaN,
+          "MAE": NaN,
+          "R2": NaN,
+          "MAPE": NaN
+        },
+        "train_time_s": 0.01
+      }
+    },
+    "MLP": {
+      "original": {
+        "metrics": {
+          "RMSE": 58475.855695465594,
+          "MAE": 42106.35923922329,
+          "R2": 0.7376362843771022,
+          "MAPE": 25.81032275294025
+        },
+        "train_time_s": 1.96
+      },
+      "log": {
+        "metrics": {
+          "RMSE": NaN,
+          "MAE": NaN,
+          "R2": NaN,
+          "MAPE": NaN
+        },
+        "train_time_s": 1.96
+      }
+    },
+    "HGB": {
+      "original": {
+        "metrics": {
+          "RMSE": 51648.8103217642,
+          "MAE": 36344.303432218665,
+          "R2": 0.7953219615217875,
+          "MAPE": 21.38312525619593
+        },
+        "train_time_s": 0.49
+      },
+      "log": {
+        "metrics": {
+          "RMSE": 60157.4409051443,
+          "MAE": 42033.66788405903,
+          "R2": 0.722329777917726,
+          "MAPE": 23.571449273073146
+        },
+        "train_time_s": 0.51
+      }
+    }
+  }
+}

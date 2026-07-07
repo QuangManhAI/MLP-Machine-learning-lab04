@@ -1,0 +1,23 @@
+2026-07-07 15:43:03,941 | INFO | ============================================================
+2026-07-07 15:43:03,941 | INFO | Training run started at 20260707_154303
+2026-07-07 15:43:03,941 | INFO | ============================================================
+2026-07-07 15:43:03,948 | INFO | Loaded housing.csv — shape: (20640, 10)
+2026-07-07 15:43:03,965 | INFO | X_train shape: (16512, 16), X_test shape: (4128, 16)
+2026-07-07 15:43:03,965 | INFO | Preprocessing complete — pipeline built with 16 features
+2026-07-07 15:43:03,966 | INFO | === Training LinearRegressionScratch ===
+2026-07-07 15:43:03,980 | INFO | LinearRegressionScratch trained in 0.01s — final loss: 0.355420
+2026-07-07 15:43:03,980 | INFO | === Training MultiLayerPercepTron ===
+2026-07-07 15:43:05,954 | INFO | MLP trained in 1.97s — final loss: 0.255156
+2026-07-07 15:43:05,954 | INFO | === Training HistGradientBoostingRegressorScratch ===
+2026-07-07 15:43:06,444 | INFO | HGB trained in 0.49s — final loss: 0.197451
+2026-07-07 15:43:06,444 | INFO | ============================================================
+2026-07-07 15:43:06,444 | INFO | Evaluating on test set
+2026-07-07 15:43:06,444 | INFO | ============================================================
+2026-07-07 15:43:06,445 | INFO | Linear — RMSE: $67355.45 | MAE: $49384.57 | R²: 0.6519 | MAPE: 28.78% | Time: 0.01s
+2026-07-07 15:43:06,445 | INFO | MLP — RMSE: $58159.26 | MAE: $40793.09 | R²: 0.7405 | MAPE: 23.05% | Time: 1.97s
+2026-07-07 15:43:06,462 | INFO | HGB — RMSE: $51648.81 | MAE: $36344.30 | R²: 0.7953 | MAPE: 21.38% | Time: 0.49s
+2026-07-07 15:43:06,462 | INFO | ============================================================
+2026-07-07 15:43:06,462 | INFO | Metrics saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_154303/metrics.json
+2026-07-07 15:43:06,722 | INFO | Loss curves saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_154303/loss_curves.png
+2026-07-07 15:43:06,827 | INFO | Comparison bar chart saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_154303/comparison_bar.png
+2026-07-07 15:43:06,827 | INFO | All outputs saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_154303

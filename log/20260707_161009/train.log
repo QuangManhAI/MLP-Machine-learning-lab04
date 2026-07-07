@@ -1,0 +1,28 @@
+2026-07-07 16:10:09,922 | INFO | ============================================================
+2026-07-07 16:10:09,922 | INFO | Training run started at 20260707_161009
+2026-07-07 16:10:09,922 | INFO | ============================================================
+2026-07-07 16:10:09,929 | INFO | Loaded housing.csv — shape: (20640, 10)
+2026-07-07 16:10:09,947 | INFO | X_train shape: (16512, 16), X_test shape: (4128, 16)
+2026-07-07 16:10:09,947 | INFO | Preprocessing complete (original) — 16 features
+2026-07-07 16:10:09,952 | INFO | Log1p applied at raw level to ['total_rooms', 'total_bedrooms', 'population', 'households']
+2026-07-07 16:10:09,965 | INFO | X_train shape: (16512, 16), X_test shape: (4128, 16)
+2026-07-07 16:10:09,965 | INFO | Preprocessing complete (log) — 16 features
+2026-07-07 16:10:09,965 | INFO | --- Training on original features ---
+2026-07-07 16:10:09,981 | INFO |   Linear — 0.02s | final loss: 0.355420
+2026-07-07 16:10:11,956 | INFO |   MLP — 1.98s | final loss: 0.252141
+2026-07-07 16:10:12,444 | INFO |   HGB — 0.49s | final loss: 0.197451
+2026-07-07 16:10:12,462 | INFO | --- Training on log-transformed features ---
+2026-07-07 16:10:12,477 | INFO |   Linear — 0.02s | final loss: 0.344790
+2026-07-07 16:10:14,453 | INFO |   MLP — 1.98s | final loss: 0.237529
+2026-07-07 16:10:14,924 | INFO |   HGB — 0.47s | final loss: 0.197822
+2026-07-07 16:10:14,941 | INFO | ======================================================================
+2026-07-07 16:10:14,941 | INFO | COMPARISON: Original vs Log-Transformed
+2026-07-07 16:10:14,941 | INFO | ======================================================================
+2026-07-07 16:10:14,941 | INFO |   Linear               | Orig R²: 0.6519  Log R²: 0.6565  ΔR²: +0.46pp  ΔRMSE: +0.66%
+2026-07-07 16:10:14,941 | INFO |   MLP                  | Orig R²: 0.7475  Log R²: 0.7580  ΔR²: +1.05pp  ΔRMSE: +2.09%
+2026-07-07 16:10:14,941 | INFO |   HGB                  | Orig R²: 0.7953  Log R²: 0.7944  ΔR²: -0.09pp  ΔRMSE: -0.23%
+2026-07-07 16:10:14,942 | INFO | Metrics saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_161009/metrics.json
+2026-07-07 16:10:15,086 | INFO | Dual comparison saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_161009/comparison_dual.png
+2026-07-07 16:10:15,348 | INFO | Loss comparison saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_161009/loss_comparison.png
+2026-07-07 16:10:15,496 | INFO | Dual comparison saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_161009/comparison_bar.png
+2026-07-07 16:10:15,496 | INFO | All outputs saved to /Users/quangmanh/Project/MLP-Machine-learning-lab04/log/20260707_161009
